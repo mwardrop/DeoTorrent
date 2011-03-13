@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		
+		<title>DeoTorrent - Web UI</title>
+		
+		<meta name="application-name" content="DeoTorrent - Web UI"/>
+		<meta name="description" content="Web interface for the RoTorrent server."/>
+		
+		<link type="text/css" href="styles/ui-theme/jquery-ui-1.8.10.custom.css" rel="stylesheet" />	
+		<link type="text/css" href="styles/deotorrent.css" rel="stylesheet" />	
+		<link type="text/css" href="styles/flexigrid.css" rel="stylesheet" />
+		<link type="text/css" href="styles/jquery.contextMenu.css" rel="stylesheet" />		
+		
+		<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.10.custom.min.js"></script>
+		<script type="text/javascript" src="js/flexigrid.js"></script>
+		<script type="text/javascript" src="js/json2.js"></script>
+		<script type="text/javascript" src="js/jquery.contextMenu.js"></script>
+		
+		
+		<script type="text/javascript" src="js/deotorrent.js"></script>
+		<script type="text/javascript" src="js/ui.js"></script>
+		<script type="text/javascript" src="js/grid.js"></script>
+		<script type="text/javascript" src="js/socket.js"></script>
+		<script type="text/javascript" src="js/console.js"></script>
+		<script type="text/javascript" src="js/torrents.js"></script>
+		<script>
+			var deotorrent = null;
+			$(function() {
+				deotorrent = new DEOTORRENT();
+				deotorrent.load();
+			});
+		</script>
+	</head>
+	<body oncontextmenu="return false;">
+		<table id="gridView" style="display:none"></table>
+		<div id="login">
+			<img src="styles/server.png" /><span class="ftitle"> User Authentication Required</span>
+			<div id="innerLogin">
+				<input id="username" type="text" style="width: 163px;" value="admin" /> Username<br />
+				<input id="password" type="password" style="width: 163px;" value="changeme" /> Password<br />
+				<span style="float:right; padding-top: 10px;"><input type="submit" value="login" /></span>
+				<script>
+					$(function() {
+						$("input:submit").button();
+						$("input:submit").click(function() { deotorrent.attemptLogin(); return false; });
+					});
+				</script>
+			</div>
+			<br />
+			<br />
+			<div class="ui-widget" id="failedLogin">
+				<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"> 
+					<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
+					<strong>Failed login attempt.</strong></p>
+				</div>
+			</div>
+		</div>
+		<div id="console">
+			<div id="handle">DeoTorrent Console</div>
+			<div id="output"></div>
+			<div id="input"><input type="text" /></div>
+		</div>
+		<script>
+			$(function() {
+				$("#console").draggable({handle: "#handle"});
+				$("#input").keypress(function(e) {
+					if(e.keyCode == 13) {
+						deotorrent.console.exec($("#input > input").val());
+						$("#input > input").val("")
+					}
+				});
+			});
+		</script>
+		<input type="file" id="datafile" name="datafile">
+		<script>
+			$(function() {
+				document.getElementById('datafile').addEventListener('change', deotorrent.torrents.add, false);
+			});
+		</script>
+		<ul id="contextMenu" class="contextMenu">
+			<li class="startMenu"><a href="#start">Start</a></li>
+			<li class="pauseMenu"><a href="#pause">Pause</a></li>
+			<li class="stopMenu"><a href="#stop">Stop</a></li>
+			<li class="deleteMenu separator"><a href="#delete">Delete</a></li>
+			<li class="detailsMenu separator"><a href="#quit">Details</a></li>
+		</ul>
+		<div id="confirmDelete" title="Delete Torrent?">
+			<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>The torrent will be permanently deleted and cannot be recovered. Are you sure?</p>
+		</div>
+		<div id="noSocket" title="No Socket Connection!">
+			<p>
+				<span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+				Server communication over WebSocket has halted. Please check your internet connection and refresh.
+			</p>
+		</div>
+	</body>
+</html>
+
+

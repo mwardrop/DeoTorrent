@@ -1,0 +1,124 @@
+body{ 
+	font: 1em "Trebuchet MS", sans-serif; 
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+#wrapper {
+	width: 700px;
+	margin: auto;
+	border: 1px solid red;
+}	
+
+.add {
+	background: url(icons/add.png) no-repeat center left;
+}
+
+.delete{
+	background: url(icons/delete.png) no-repeat center left;
+}
+
+.start {
+	background: url(icons/control_play.png) no-repeat center;
+	height: 16px;
+
+}
+
+.pause {
+	background: url(icons/control_pause.png) no-repeat center;
+	height: 16px;
+
+}
+
+.stop {
+	background: url(icons/control_stop.png) no-repeat center;
+	height: 16px;
+
+}
+
+.console {
+	background: url(icons/application_osx_terminal.png) no-repeat center;
+	height: 16px;
+}
+
+.ftitle {
+	font-size: 1.5em;
+	color: #5a5a5a;
+}
+
+.ltitle {
+	font-size: 1.3em;
+	color: #5a5a5a;
+}
+
+#login {
+	width: 265px;
+	height: 200px;
+	margin: auto;
+	font-size: 0.75em;
+	margin-top: 100px;
+	display: none;
+}
+
+#innerLogin {
+	padding: 20px;
+}
+
+#failedLogin {
+	display: none;
+}
+
+#filter {
+	font-size: 0.5em;
+	display: inline;
+	position: relative;
+	bottom: 0px;
+	float: right;
+}
+
+#console {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 600px;
+	height: 350px;
+		border: 1px solid #CCC;
+	display: none;
+	z-index: 10000;
+	font-size: 12px;
+}
+
+#handle {
+	color: #5A5A5A;
+
+	text-align: center;
+	cursor: move;
+	background: url(images/wbg.gif) repeat-x top;
+	font-weight: bold;
+	padding: 5px;
+}
+#output {
+	height: 298px;
+	background: #FFF;
+	padding: 5px;
+	overflow-y: scroll;
+}
+#input > input {
+	width: 596px;
+}
+
+#datafile {
+	position: absolute;
+	top: 99999px;
+}
+
+#confirmDelete{
+	font-size: 0.8em;
+	display: none;
+}
+
+#noSocket{
+	font-size:0.8em;
+	display: none;
+}
