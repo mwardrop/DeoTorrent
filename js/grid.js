@@ -33,7 +33,7 @@ function GRID() {
 								data[key].name, 
 								(data[key].total_size / 1000 / 1000).toFixed(2) + " Mb", 
 								(data[key].progress * 100).toFixed(0) + " %", 
-								"Active", 
+								deotorrent.torrents.stateTypes[data[key].state], 
 								data[key].num_seeds, 
 								data[key].num_peers, 
 								(data[key].download_rate / 1000).toFixed(2) + " Kb/s", 

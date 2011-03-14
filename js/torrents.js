@@ -10,6 +10,16 @@
 function TORRENTS() {
 
 	this.data = null;
+	this.stateTypes = {
+        queued_for_checking: "Queued",
+        checking_files: "Checking",
+        downloading_metadata: "Downloading",
+        downloading: "Downloading Meta",
+        finished: "Complete",
+        seeding: "Seeding",
+        allocating: "Allocating",
+        checking_resume_data: "Resuming" 
+    };
 
 	this.__construct = function () { 
 		this.data = new Array();
@@ -141,6 +151,10 @@ function TORRENT() {
 	this.error = null;
 	this.total_upload = null;
 	this.total_failed_bytes = null;
+	
+	this.state = null;
+	this.announce_interval = null;
+	this.next_announce = null;
 
 	this.files = null;
 	this.comment = null;
