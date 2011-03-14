@@ -9,10 +9,20 @@
  
 function CONSOLE() {
 
-	this.respDebug = true;
-	this.reqDebug = false;
+	this.respDebug = false;
+	this.reqDebug = true;
 
-
+	this.scroll = false;
+	
+	this.autoMemory = [
+		"deotorrent",
+		"deotorrent.torrents",
+		"deotorrent.console",
+		"deotorrent.ui",
+		"deotorrent.ui.grid",
+		"deotorrent.socket"
+	];
+	
 	this.__construct = function () { }
 	
 	this.exec = function (cmd) {
@@ -26,10 +36,21 @@ function CONSOLE() {
 		}
 		
 	}
+	
+	this.toggleScroll = function() {
+		if(this.scroll) {
+			this.scroll = false;
+		} else {
+			this.scroll = true;
+		}
+	}
 
 	this.append = function (msg) {
 		$("#output").append(msg + "<br />");
-		$("#output").attr({ scrollTop: $("#output").attr("scrollHeight") });
+		
+		if($('#scrollConsole:checked').val() !== undefined) {
+			$("#output").attr({ scrollTop: $("#output").attr("scrollHeight") });
+		}
 	}
 	
 	this.__construct();

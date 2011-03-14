@@ -19,6 +19,19 @@ body{
 	background: url(icons/delete.png) no-repeat center left;
 }
 
+.remove{
+	background: url(icons/cross.png) no-repeat center left;
+}
+
+.rss{
+	background: url(icons/rss.png) no-repeat center center;
+	height: 16px;
+}
+
+.settings{
+	background: url(icons/application_form.png) no-repeat center left;
+}
+
 .start {
 	background: url(icons/control_play.png) no-repeat center;
 	height: 16px;
@@ -77,17 +90,6 @@ body{
 	float: right;
 }
 
-#console {
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	width: 600px;
-	height: 350px;
-		border: 1px solid #CCC;
-	display: none;
-	z-index: 10000;
-	font-size: 12px;
-}
 
 #handle {
 	color: #5A5A5A;
@@ -99,13 +101,14 @@ body{
 	padding: 5px;
 }
 #output {
-	height: 298px;
+	height: 100%;
+	width: 100%;
 	background: #FFF;
 	padding: 5px;
 	overflow-y: scroll;
 }
-#input > input {
-	width: 596px;
+#input {
+	width: 100%;
 }
 
 #datafile {
@@ -120,5 +123,9 @@ body{
 
 #noSocket{
 	font-size:0.8em;
+	display: none;
+}
+
+#console {
 	display: none;
 }

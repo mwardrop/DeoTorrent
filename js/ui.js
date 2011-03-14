@@ -15,29 +15,14 @@ function UI() {
 		this.grid = new GRID();
 	}
 	
-	this.hideConsole = function (fade) {
-		if(fade){
-			$("#console").fadeOut();
-		} else {
-			$("#console").hide();
-		}
-	}
 
 	this.showConsole = function (fade) {
-		if(fade){
-			$("#console").fadeIn();
-		} else {
-			$("#console").show();
-		}
-	}
-
-	this.toggleConsole = function(fade) {	
-		fade = typeof(fade) == 'undefined' ? fade : true;
-		if($("#console").is(':hidden')) { 
-			deotorrent.ui.showConsole(fade);
-		} else { 
-			deotorrent.ui.hideConsole(fade); 
-		}
+		$( "#console" ).dialog({
+			minWidth: 800,
+			minHeight: 350,
+			width: 800,
+			height: 350
+		});
 	}
 
 

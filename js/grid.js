@@ -22,26 +22,29 @@ function GRID() {
 	this.update = function () {
 		var data = deotorrent.torrents.data;
 		var rows = new Array();
+		var filter = $("input[name=filter]:checked").val();
 		for(var key in data) {
 			var ETA = "Complete";
 			if(data[key].progress != 1) {
 				ETA = (((data[key].total_wanted - data[key].total_wanted_done) / data[key].download_rate) * 60).toFixed(1);
 				ETA += " Mins.";
 			}
-			rows.push({id: key,
-						cell: [ data[key].priority, 
-								data[key].name, 
-								(data[key].total_size / 1000 / 1000).toFixed(2) + " Mb", 
-								(data[key].progress * 100).toFixed(0) + " %", 
-								deotorrent.torrents.stateTypes[data[key].state], 
-								data[key].num_seeds, 
-								data[key].num_peers, 
-								(data[key].download_rate / 1000).toFixed(2) + " Kb/s", 
-								(data[key].upload_rate / 1000).toFixed(2) + " Kb/s",
-								ETA,
-								(data[key].all_time_upload / 1000 / 1000).toFixed(2) + " Mb", 
-								data[key].distributed_copies]});
-			
+			if(filter == "all" || data[key].state == filter) {
+				rows.push({id: key,
+							cell: [ data[key].priority, 
+									data[key].name, 
+									(data[key].total_size / 1000 / 1000).toFixed(2) + " Mb", 
+									(data[key].progress * 100).toFixed(0) + " %", 
+									deotorrent.torrents.stateTypes[data[key].state], 
+									data[key].num_seeds, 
+									data[key].num_peers, 
+									(data[key].download_rate / 1000).toFixed(2) + " Kb/s", 
+									(data[key].upload_rate / 1000).toFixed(2) + " Kb/s",
+									ETA,
+									(data[key].all_time_upload / 1000 / 1000).toFixed(2) + " Mb", 
+									data[key].distributed_copies]});
+			}
+			var stop = 'stop';
 		}
 		var updateObj = {
 			total: 3,
@@ -49,12 +52,14 @@ function GRID() {
 			rows: rows
 		};
 		
+
 		this.grid.flexAddData(updateObj);
-		this.sort("#gridView")
-		
+		this.sort("#gridView");
+	
 		if(this.selectedRow) {
 			$("#row" + this.selectedRow).addClass("trSelected");
 		}
+		
 		var self = this;
         setTimeout(function() { self.update(); }, 1000);
 	}
@@ -69,11 +74,11 @@ function GRID() {
 	this.init = function () {
 		this.grid = $("#gridView");
 		var filterHTML = '	<div id="filter"> \
-								<input type="radio" id="radio1" name="radio" checked="checked" /><label for="radio1">All</label> \
-								<input type="radio" id="radio2" name="radio" /><label for="radio2">Downloading</label> \
-								<input type="radio" id="radio3" name="radio" /><label for="radio3">Completed</label> \
-								<input type="radio" id="radio4" name="radio" /><label for="radio4">Active</label> \
-								<input type="radio" id="radio5" name="radio" /><label for="radio5">Inactive</label> \
+								<input type="radio" id="radioAll" name="filter" checked="checked" value="all" /><label for="radioAll">All</label> \
+								<input type="radio" id="radioDownload" name="filter" value="downloading" /><label for="radioDownload">Downloading</label> \
+								<input type="radio" id="radioSeed" name="filter" value="seeding" /><label for="radioSeed">Seeding</label> \
+								<input type="radio" id="radioQueued" name="filter" value="queued_for_Checking" /><label for="radioQueued">Queued</label> \
+								<input type="radio" id="radioComplete" name="filter" value="finished" /><label for="radioComplete">Complete</label> \
 							</div> ';
 							
 		this.grid.flexigrid({
@@ -95,13 +100,18 @@ function GRID() {
 				{display: 'Name', name : 'name', isdefault: true}
 			],
 			buttons : [
+				{name: 'Settings', bclass: 'settings', onpress : deotorrent.ui.grid.buttons.settings},
+				{separator: true},
 				{name: 'Add Torrent', bclass: 'add', onpress : deotorrent.ui.grid.buttons.add},
 				{separator: true},
-				{name: 'Delete Torrent', bclass: 'delete', onpress : deotorrent.ui.grid.buttons.del},
+				{name: 'Delete', bclass: 'delete', onpress : deotorrent.ui.grid.buttons.del},
+				{name: 'Remove', bclass: 'remove', onpress : deotorrent.ui.grid.buttons.remove},
 				{separator: true},
 				{name: '', bclass: 'start', onpress : deotorrent.ui.grid.buttons.start},
 				{name: '', bclass: 'pause', onpress : deotorrent.ui.grid.buttons.pause},
 				{name: '', bclass: 'stop', onpress : deotorrent.ui.grid.buttons.stop},
+				{separator: true},
+				{name: '', bclass: 'rss', onpress : deotorrent.ui.grid.buttons.rss},
 				{separator: true},
 				{name: '', bclass: 'console', onpress : deotorrent.ui.grid.buttons.console},
 			],
@@ -136,6 +146,11 @@ function GRID() {
 						);
 				});
 		
+		
+		$("input[name=filter]:checked").change(function(){
+
+		});
+ 
 		$( "#filter" ).buttonset();
 		this.hide(false);
 	}
@@ -243,6 +258,6 @@ function BUTTONS() {
 	}
 	
 	this.console = function () {
-		deotorrent.ui.toggleConsole();
+		deotorrent.ui.showConsole();
 	}
 }

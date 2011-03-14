@@ -60,4 +60,5 @@
 .contextMenu LI.stopMenu A { background-image: url(icons/control_stop.png); }
 .contextMenu LI.pauseMenu A { background-image: url(icons/control_pause.png); }
 .contextMenu LI.deleteMenu A { background-image: url(icons/delete.png); }
+.contextMenu LI.removeMenu A { background-image: url(icons/cross.png); }
 .contextMenu LI.detailsMenu A { background-image: url(icons/application_view_list.png); }

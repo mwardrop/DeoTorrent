@@ -34,6 +34,11 @@ function DEOTORRENT() {
 		var username = $("#username").val();
 		var password = $("#password").val();
 		
+		if(config['autoLogin']) {
+			username = config['username'];
+			password = config['password'];
+		}
+		
 		this.socket.send("authenticate", {"username": username, "password": password});
 	}
 

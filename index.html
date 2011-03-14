@@ -13,6 +13,8 @@
 		<link type="text/css" href="styles/flexigrid.css" rel="stylesheet" />
 		<link type="text/css" href="styles/jquery.contextMenu.css" rel="stylesheet" />		
 		
+		<script type="text/javascript" src="config.js"></script>
+		
 		<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-1.8.10.custom.min.js"></script>
 		<script type="text/javascript" src="js/flexigrid.js"></script>
@@ -39,8 +41,8 @@
 		<div id="login">
 			<img src="styles/server.png" /><span class="ftitle"> User Authentication Required</span>
 			<div id="innerLogin">
-				<input id="username" type="text" style="width: 163px;" value="admin" /> Username<br />
-				<input id="password" type="password" style="width: 163px;" value="changeme" /> Password<br />
+				<input id="username" type="text" style="width: 163px;" value="" /> Username<br />
+				<input id="password" type="password" style="width: 163px;" value="" /> Password<br />
 				<span style="float:right; padding-top: 10px;"><input type="submit" value="login" /></span>
 				<script>
 					$(function() {
@@ -58,22 +60,45 @@
 				</div>
 			</div>
 		</div>
-		<div id="console">
-			<div id="handle">DeoTorrent Console</div>
-			<div id="output"></div>
-			<div id="input"><input type="text" /></div>
+		<div id="console" title="DeoTorrent Console">
+			<table width="100%" height="100%">
+				<tr>
+					<td width="100%" colspan="2">
+						<div id="output"></div>
+					</td>
+				</tr>
+				<tr>
+					<td width="100%" height="20px">
+						<input id="input" type="text" />
+						<script>
+							$(function() {
+
+								$( "#input" ).autocomplete({
+									source: deotorrent.console.autoMemory
+								});
+
+								$("#input").keypress(function(e) {
+									if(e.keyCode == 13) {
+										deotorrent.console.exec($("#input").val());
+										deotorrent.console.autoMemory.push($("#input").val());
+										$("#input").autocomplete("option", { source: deotorrent.console.autoMemory });
+										$("#input").val("")
+									}
+								});
+							});
+						</script>
+					</td>
+					<td width="40" style="text-align: center;">
+						<input type="checkbox" id="scrollConsole" checked="checked" /><label for="scrollConsole">Scroll Output</label>
+						<script>
+							$(function() {
+								$( "#scrollConsole" ).button();
+							});
+						</script>
+					</td>
+				</tr>
+			</table>
 		</div>
-		<script>
-			$(function() {
-				$("#console").draggable({handle: "#handle"});
-				$("#input").keypress(function(e) {
-					if(e.keyCode == 13) {
-						deotorrent.console.exec($("#input > input").val());
-						$("#input > input").val("")
-					}
-				});
-			});
-		</script>
 		<input type="file" id="datafile" name="datafile">
 		<script>
 			$(function() {
@@ -85,6 +110,7 @@
 			<li class="pauseMenu"><a href="#pause">Pause</a></li>
 			<li class="stopMenu"><a href="#stop">Stop</a></li>
 			<li class="deleteMenu separator"><a href="#delete">Delete</a></li>
+			<li class="removeMenu"><a href="#remove">Remove</a></li>
 			<li class="detailsMenu separator"><a href="#quit">Details</a></li>
 		</ul>
 		<div id="confirmDelete" title="Delete Torrent?">

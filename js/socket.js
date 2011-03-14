@@ -10,7 +10,7 @@
 function SOCKET() {
 	
 	this.socket = null;
-	this.server = "ws://172.16.1.11:8081/";
+	this.server = config['server'];
 	this.connected = false;
 
 	this.error = null;
@@ -23,7 +23,7 @@ function SOCKET() {
 
 		this.socket.onmessage = this.handleResponse;
 		this.socket.onclose = function(e) { self.connected = false; }
-		this.socket.onopen = function (e) { self.connected = true; deotorrent.attemptLogin(); }
+		this.socket.onopen = function (e) { self.connected = true; if(config['autoLogin']) { deotorrent.attemptLogin(); } }
 	}
 	
 	this.handleResponse = function (e) {
