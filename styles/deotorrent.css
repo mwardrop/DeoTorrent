@@ -148,3 +148,8 @@ border: 1px solid red;
 .detailsValue {
 	max-width: 300px;
 }
+
+.settingTab {
+	height: 130px; 
+	overflow-y: hidden;
+}

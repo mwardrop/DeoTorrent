@@ -20,6 +20,12 @@ function GRID() {
 	}
 	
 	this.update = function () {
+		this.refresh();
+		var self = this;
+        setTimeout(function() { self.update(); }, config['updateInterval']);
+	}
+	
+	this.refresh = function () {
 		var data = deotorrent.torrents.data;
 		var rows = new Array();
 		var filter = $("input[name=filter]:checked").val();
@@ -60,8 +66,6 @@ function GRID() {
 			$("#row" + this.selectedRow).addClass("trSelected");
 		}
 		
-		var self = this;
-        setTimeout(function() { self.update(); }, config['updateInterval']);
 	}
 
 	this.addClickEvent = function (celDiv,id) {
@@ -146,8 +150,8 @@ function GRID() {
 				});
 		
 		
-		$("input[name=filter]:checked").change(function(){
-
+		$("input[name=filter]").change(function(){
+			deotorrent.ui.grid.refresh();
 		});
  
 		$( "#filter" ).buttonset();
@@ -236,6 +240,10 @@ function GRID() {
 
 function BUTTONS() {
 
+	this.settings = function() {
+		deotorrent.ui.showSettings();
+	}
+	
 	this.add = function() {
 		$("#datafile").click();
 	}

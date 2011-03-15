@@ -88,8 +88,8 @@
 							});
 						</script>
 					</td>
-					<td width="40" style="text-align: center;">
-						<input type="checkbox" id="scrollConsole" checked="checked" /><label for="scrollConsole">Scroll Output</label>
+					<td style="text-align: center;">
+						<input type="checkbox" id="scrollConsole" checked="checked" /><label for="scrollConsole" style="width: 120px; margin-left: 5px;">Scroll Output</label>
 						<script>
 							$(function() {
 								$( "#scrollConsole" ).button();
@@ -123,9 +123,41 @@
 			</p>
 		</div>
 		<div id="torrentDetails" title="Torrent Details">
-			<table>
-			
-			</table>
+			<table></table>
+		</div>
+		<div id="settings" title="DeoTorrent Settings" style="display: none;">
+			<div id="settingsTabs">
+				<ul>
+					<li><a href="#settingsTabGeneral">General</a></li>
+				</ul>
+				<div class="settingTab" id="settingsTabGeneral" >
+					<center>
+						<table>
+							<tr>
+								<td style="font-weight: bold;">Server: </td>
+								<td><input style="width: 200px;" type="text" name="server" disabled /></td>
+							</tr>
+							<tr>
+								<td style="font-weight: bold;">Username: </td>
+								<td><input style="width: 200px;" type="text" name="username" /></td>
+							</tr>
+							<tr>
+								<td style="font-weight: bold;">Password: </td>
+								<td><input style="width: 200px;" type="text" name="password" /></td>
+							</tr>
+								<td style="font-weight: bold;">Update Interval: </td>
+								<td><input style="width: 200px;" type="text" name="updateInterval" /></td>
+							</tr>
+						</table>
+						<span style="font-size: 0.8em; padding-top: 10px;">Settings require program restart to take effect.</span>
+					</center>
+				</div>
+			</div>
+			<script>
+				$(function() {
+					$( "#settingsTabs" ).tabs();
+				});
+			</script>
 		</div>
 	</body>
 </html>

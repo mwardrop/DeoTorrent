@@ -51,6 +51,33 @@ function UI() {
 		}
 	}
 	
+	this.showSettings = function () {
+					
+		$("#settings").find("input[name=server]").val(config['server']);			
+		$("#settings").find("input[name=username]").val(config['username']);
+		$("#settings").find("input[name=password]").val(config['password']);
+		$("#settings").find("input[name=updateInterval]").val(config['updateInterval']);		
+
+		$( "#settings" ).dialog({
+			resizable: false,
+			height: 290,
+			width: 400,
+			modal: true,
+			buttons: {
+				"Accept": function() {
+					localStorage.setItem('username', $("#settings").find("input[name=username]").val());
+					localStorage.setItem('password', $("#settings").find("input[name=password]").val());
+					localStorage.setItem('updateInterval', $("#settings").find("input[name=updateInterval]").val());
+					$( this ).dialog( "close" );
+
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+	}
+	
 	this.showDetails = function() {
 		var details = "No torrent selected!";
 		var key = deotorrent.ui.grid.selectedRow;
@@ -61,7 +88,7 @@ function UI() {
 			for(var item in torrent) {
 				if(cCount == 0) { details += "<tr>"; }
 				
-				details += "<td class='detailsItem'>" + item + ":</td><td class='detailsValue' width='300' >" + torrent[item] + "<br /></td>";
+				details += "<td class='detailsItem'>" + item + ":</td><td class='detailsValue' ><input type='text' value='" + torrent[item] + "'  style='width: 250px;' /><br /></td>";
 				
 				cCount ++;
 				if(cCount == 2) { details += "</tr>"; cCount = 0;}
@@ -71,7 +98,7 @@ function UI() {
 		$("#torrentDetails > table").html(details);
 		$( "#torrentDetails" ).dialog({
 			modal: true,
-			height: 700,
+			height: 500,
 			width: 900,
 			buttons: {
 				Ok: function() {

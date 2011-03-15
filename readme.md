@@ -3,7 +3,7 @@
 				| | | |/ _ \/ _ \| |/ _ \| '__| '__/ _ \ '_ \| __|
 				| |_| |  __/ (_) | | (_) | |  | | |  __/ | | | |_
 				|____/ \___|\___/|_|\___/|_|  |_|  \___|_| |_|\__|
-													Alpha RC 1.2
+													Alpha RC 1.3
  
 Contents
 --------
@@ -54,7 +54,7 @@ Usage
 
 	Menu Strip:
 		1. Settings
-			- Not implemented
+			Allows you to set per client settings
 		2. Add Torrent
 			- Currently has encoding issue's with the server
 		3. Delete Torrent
@@ -177,4 +177,9 @@ Changelog
 		- Added details window
 		- Added updateInterval to the config
 		- Added readme.txt
-		
+	
+	Alpha RC 1.3
+		- Fixed big: initial grid load delay
+		- Improved status filter responsiveness
+		- Added settings dialog ( Allows per client settings )
+		- Updated details dialog UI

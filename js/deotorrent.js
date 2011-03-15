@@ -9,7 +9,7 @@
  
 function DEOTORRENT() {
 
-	this.version = "Alpha RC 1.2";
+	this.version = "Alpha RC 1.3";
 
 	this.socket = null;
 	this.torrents = null;
@@ -55,6 +55,11 @@ function DEOTORRENT() {
 			this.ui.grid.init();
 			this.ui.grid.update();
 			this.ui.grid.show(true);
+			
+			// Due to the torrent data not being loaded by the time grid.update is called
+			// this timed refresh is set so we don't have to wait for the next update which
+			// could be some time if the updateInterval is set long.
+			setTimeout('deotorrent.ui.grid.refresh();', 100);
 		} else {
 			this.authenticated = false;
 			this.ui.showLoginFail(true);
