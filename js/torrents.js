@@ -6,7 +6,7 @@
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.html
  */
- 
+
 function TORRENTS() {
 
 	this.data = null;
@@ -18,23 +18,23 @@ function TORRENTS() {
         finished: "Complete",
         seeding: "Seeding",
         allocating: "Allocating",
-        checking_resume_data: "Resuming" 
+        checking_resume_data: "Resuming"
     };
 
-	this.__construct = function () { 
+	this.__construct = function () {
 		this.data = new Array();
 	}
-	
+
 	this.load = function() {
 		this.update();
 	}
-	
+
 	this.update = function() {
 		this.getStatus();
 		var self = this;
 		if(deotorrent.socket.connected){ setTimeout(function() { self.update(); }, config['updateInterval']); }
 	}
-	
+
 	this.add = function(evt) {
 		var files = evt.target.files;
 
@@ -43,7 +43,7 @@ function TORRENTS() {
 			var reader = new FileReader();
 			reader.onload = function(e) {
 				var bin = e.target.result;
-				deotorrent.socket.send("torrent_add", {raw_torrent: deotorrent.socket.encode64(bin)});
+				deotorrent.socket.send("torrent_add", {raw_torrent: window.btoa(bin)});
 				alert("sent");
 			}
 			reader.readAsBinaryString(f);
@@ -65,7 +65,7 @@ function TORRENTS() {
 	this.pause = function(key) {
 		deotorrent.socket.send("torrent_pause", {info_hash: key});
 	}
-	
+
 	this.getStatus = function(key) {
 		if(key) {
 			deotorrent.socket.send("torrent_status", {info_hash: key});
@@ -73,7 +73,7 @@ function TORRENTS() {
 			deotorrent.socket.send("torrent_status");
 		}
 	}
-	
+
 	this.getInfo = function(key) {
 		if(key) {
 			deotorrent.socket.send("torrent_info", {info_hash: key});
@@ -83,7 +83,7 @@ function TORRENTS() {
 			}
 		}
 	}
-	
+
 	this.parseStatusInfo = function(obj) {
 		for(var key in obj) {
 			if(!this.data[key]) {
@@ -105,7 +105,7 @@ function TORRENTS() {
 function TORRENT() {
 
 	this.hasInfo = false;
-	
+
 	this.key = null;
 	this.num_incomplete = null;
 	this.upload_payload_rate = null;
@@ -151,7 +151,7 @@ function TORRENT() {
 	this.error = null;
 	this.total_upload = null;
 	this.total_failed_bytes = null;
-	
+
 	this.state = null;
 	this.announce_interval = null;
 	this.next_announce = null;
