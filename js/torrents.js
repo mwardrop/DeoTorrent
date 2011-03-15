@@ -32,7 +32,7 @@ function TORRENTS() {
 	this.update = function() {
 		this.getStatus();
 		var self = this;
-		if(deotorrent.socket.connected){ setTimeout(function() { self.update(); }, 1000); }
+		if(deotorrent.socket.connected){ setTimeout(function() { self.update(); }, config['updateInterval']); }
 	}
 	
 	this.add = function(evt) {

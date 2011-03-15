@@ -9,9 +9,11 @@
  
 function CONSOLE() {
 
-	this.respDebug = false;
-	this.reqDebug = true;
-
+	this.debug = {
+		requests: false,
+		responses: false
+	}
+	
 	this.scroll = false;
 	
 	this.autoMemory = [
@@ -20,7 +22,8 @@ function CONSOLE() {
 		"deotorrent.console",
 		"deotorrent.ui",
 		"deotorrent.ui.grid",
-		"deotorrent.socket"
+		"deotorrent.socket",
+		"config"
 	];
 	
 	this.__construct = function () { }

@@ -8,10 +8,16 @@
  */
  
 function CONFIG() {
-	this.server = "ws://172.16.1.11:8081/"; // RoTorrent web socket url
-	this.username = "admin"; // auto login username
-	this.password = "changeme"; // Auto login password
-	this.autoLogin = true; // Auto login or prompte for credentials?
+	this.server = "ws://127.0.0.1:8081/"; 	// URL of the RoTorrent WebSocket
+	
+	this.username = "admin"; 				// Username for automatic login
+	
+	this.password = "changeme"; 			// Password for automatic login
+	
+	this.autoLogin = true; 					// True: Login automatically for single user enviroment
+											// False: Provide login box for multiuser enviroment
+ 	
+	this.updateInterval = 5000; 			// How often torrent status is updated ( Milliseconds )
 }
 
 var config = new CONFIG();

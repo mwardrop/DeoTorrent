@@ -28,7 +28,7 @@ function SOCKET() {
 	
 	this.handleResponse = function (e) {
 		var stop = "stop";
-		if(deotorrent.console.respDebug) {
+		if(deotorrent.console.debug['responses']) {
 			deotorrent.console.append(e.data);
 		}
 		var resp = JSON.parse(e.data);
@@ -49,7 +49,7 @@ function SOCKET() {
 		if(this.connected) {
 			var args = typeof(args) != 'undefined' ? args : {};
 			var req = {'cmd' : cmd, 'args' : args};
-			if(deotorrent.console.reqDebug) {
+			if(deotorrent.console.debug['requests']) {
 				deotorrent.console.append(JSON.stringify(req));
 			}
 			this.socket.send(JSON.stringify(req));

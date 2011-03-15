@@ -366,7 +366,7 @@
 					this.rePosDrag();
 			},
 			addData: function (data) { //parse data
-				
+				//$('tr, a, td, div',t).unbind();
 				if (p.preProcess)
 					data = p.preProcess(data);
 				
@@ -513,7 +513,8 @@
 				
 				}
 
-				$('tr',t).unbind();
+				
+				$('tr',t).remove();
 				$(t).empty();
 				
 				$(t).append(tbody);

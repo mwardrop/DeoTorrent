@@ -61,7 +61,7 @@ function GRID() {
 		}
 		
 		var self = this;
-        setTimeout(function() { self.update(); }, 1000);
+        setTimeout(function() { self.update(); }, config['updateInterval']);
 	}
 
 	this.addClickEvent = function (celDiv,id) {
@@ -138,12 +138,11 @@ function GRID() {
 					menu: 'contextMenu'
 				},
 					function(action, el, pos) {
-					alert(
-						'Action: ' + action + '\n\n' +
-						'Element ID: ' + $(el).attr('id') + '\n\n' + 
-						'X: ' + pos.x + '  Y: ' + pos.y + ' (relative to element)\n\n' + 
-						'X: ' + pos.docX + '  Y: ' + pos.docY+ ' (relative to document)'
-						);
+						switch(action) {
+							case "details":
+								deotorrent.ui.showDetails();
+								break;
+						}
 				});
 		
 		

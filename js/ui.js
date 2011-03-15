@@ -51,6 +51,36 @@ function UI() {
 		}
 	}
 	
+	this.showDetails = function() {
+		var details = "No torrent selected!";
+		var key = deotorrent.ui.grid.selectedRow;
+		if(key) {
+			details = "";
+			var torrent = deotorrent.torrents.data[key];
+			var cCount = 0;
+			for(var item in torrent) {
+				if(cCount == 0) { details += "<tr>"; }
+				
+				details += "<td class='detailsItem'>" + item + ":</td><td class='detailsValue' width='300' >" + torrent[item] + "<br /></td>";
+				
+				cCount ++;
+				if(cCount == 2) { details += "</tr>"; cCount = 0;}
+				
+			}
+		}
+		$("#torrentDetails > table").html(details);
+		$( "#torrentDetails" ).dialog({
+			modal: true,
+			height: 700,
+			width: 900,
+			buttons: {
+				Ok: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+	}
+	
 	this.confirmDelete = function(key) {
 		$( "#confirmDelete" ).dialog({
 			resizable: false,

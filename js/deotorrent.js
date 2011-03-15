@@ -9,6 +9,8 @@
  
 function DEOTORRENT() {
 
+	this.version = "Alpha RC 1.2";
+
 	this.socket = null;
 	this.torrents = null;
 	this.ui = null;
@@ -44,11 +46,14 @@ function DEOTORRENT() {
 
 	this.authenticate = function (status) {
 		if(status == 0) {
-			this.authenticated = true;
-			this.ui.grid.init();
 			this.torrents.load();
-			this.ui.grid.update();
+			
+			this.authenticated = true;
+			
 			this.ui.hideLogin();
+			
+			this.ui.grid.init();
+			this.ui.grid.update();
 			this.ui.grid.show(true);
 		} else {
 			this.authenticated = false;
