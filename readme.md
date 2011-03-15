@@ -154,11 +154,6 @@ Known issues
 		displaying the torrent list. Setting your config.updateInterval setting 
 		to a high value should help slow the memory leak until a better solution
 		can be found
-		
-	- The grid will not display on initial load. A delay equal to that of the 
-		config['updateInterval'] is present. This is due to the grid attempting
-		to update on init before the sockets first response is parsed. A work
-		around is not yet know
 
 Changelog
 ---------
