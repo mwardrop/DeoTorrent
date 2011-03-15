@@ -1,12 +1,13 @@
- ____           _____                         _   
-|  _ \  ___  __|_   _|__  _ __ _ __ ___ _ __ | |_ 
-| | | |/ _ \/ _ \| |/ _ \| '__| '__/ _ \ '_ \| __|
-| |_| |  __/ (_) | | (_) | |  | | |  __/ | | | |_ 
-|____/ \___|\___/|_|\___/|_|  |_|  \___|_| |_|\__|
+					 ____           _____                         _   
+					|  _ \  ___  __|_   _|__  _ __ _ __ ___ _ __ | |_ 
+					| | | |/ _ \/ _ \| |/ _ \| '__| '__/ _ \ '_ \| __|
+					| |_| |  __/ (_) | | (_) | |  | | |  __/ | | | |_ 
+					|____/ \___|\___/|_|\___/|_|  |_|  \___|_| |_|\__|
 								Alpha RC 1.2
  
 	Contents
 ================================================================================
+
 	1. What is DeoTorrent
 	2. How to install
 	3. Usage
@@ -15,10 +16,12 @@
 	
 	What is DeoTorret
 ================================================================================
+
 	DeoTorrent is a HTML 5 and Javascript based client to the RoTorrent server.
 	
 	How to install
 ================================================================================
+
 	Requirements: 
 		1. Latest version of Google Chrome *
 		2. Working install of RoTorrent to connect to	
@@ -48,6 +51,7 @@
 		
 	Usage
 ================================================================================
+
 	Menu Strip:
 		1. Settings
 			- Not implemented
@@ -145,6 +149,7 @@
 
 	Known issues
 ================================================================================
+
 	- There is a massive memory leak in the FlexiGrid component used for 
 		displaying the torrent list. Setting your config.updateInterval setting 
 		to a high value should help slow the memory leak until a better solution
@@ -157,6 +162,7 @@
 
 	Changelog
 ================================================================================
+
 	Alpha RC 1.0
 		- Basic connect and list support
 		- Initial draft of the console
