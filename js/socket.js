@@ -42,6 +42,9 @@ function SOCKET() {
 			case 'torrent_info':
 				deotorrent.torrents.parseStatusInfo(resp.data);
 			break;
+			case 'session_status':
+				deotorrent.session.parse(resp.data);
+			break;
 		}
 	}
 

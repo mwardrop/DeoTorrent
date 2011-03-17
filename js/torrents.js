@@ -44,7 +44,6 @@ function TORRENTS() {
 			reader.onload = function(e) {
 				var bin = e.target.result;
 				deotorrent.socket.send("torrent_add", {raw_torrent: window.btoa(bin)});
-				alert("sent");
 			}
 			reader.readAsBinaryString(f);
 		}
@@ -93,6 +92,7 @@ function TORRENTS() {
 				this.data[key][item] = obj[key][item];
 			}
 			if(!this.data[key].hasInfo) {
+				deotorrent.ui.grid.addrows = true;
 				this.getInfo(key);
 				this.data[key].hasInfo = true;
 			}

@@ -28,6 +28,7 @@
 		<script type="text/javascript" src="js/socket.js"></script>
 		<script type="text/javascript" src="js/console.js"></script>
 		<script type="text/javascript" src="js/torrents.js"></script>
+		<script type="text/javascript" src="js/session.js"></script>
 		<script>
 			var deotorrent = null;
 			$(function() {
@@ -72,17 +73,19 @@
 						<input id="input" type="text" />
 						<script>
 							$(function() {
-
 								$( "#input" ).autocomplete({
 									source: deotorrent.console.autoMemory
 								});
 
-								$("#input").keypress(function(e) {
+								$("#input").keydown(function(e) {
 									if(e.keyCode == 13) {
 										deotorrent.console.exec($("#input").val());
 										deotorrent.console.autoMemory.push($("#input").val());
 										$("#input").autocomplete("option", { source: deotorrent.console.autoMemory });
-										$("#input").val("")
+										$("#input").val('')
+									}
+									if (e.which == 38) {
+										$("#input").attr("value", deotorrent.console.autoMemory[deotorrent.console.autoMemory.length - 2]);
 									}
 								});
 							});
@@ -158,6 +161,35 @@
 					$( "#settingsTabs" ).tabs();
 				});
 			</script>
+		</div>
+		<div id="sessionStatus" title="RoTorrent Session Status" style="display: none;">
+			<table></table>
+		</div>
+		<div id="statusBar">
+			<table id="statusTable" cellpadding="0" cellspacing="3">
+				<tr>
+					<td style="width: 100%">
+					</td>
+					<td style="font-weight: bold;">
+						Download: 
+					</td>
+					<td id="downSpeed" style="border: 1px solid grey; padding-right: 5px; padding-left: 5px;">
+						22.0 kB/s
+					</td>
+					<td id="downTotal" style="border: 1px solid grey; padding-right: 5px; padding-left: 5px;">
+						327 MB
+					</td>
+					<td style="font-weight: bold;">
+						Upload: 
+					</td>
+					<td id="upSpeed" style="border: 1px solid grey; padding-right: 5px; padding-left: 5px;">
+						22.0 kB/s
+					</td>
+					<td id="upTotal" style="border: 1px solid grey; padding-right: 5px; padding-left: 5px;">
+						327 MB
+					</td>
+				</tr>
+			</table>
 		</div>
 	</body>
 </html>

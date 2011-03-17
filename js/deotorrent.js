@@ -15,14 +15,16 @@ function DEOTORRENT() {
 	this.torrents = null;
 	this.ui = null;
 	this.console = null;
+	this.session = null;
 	
 	this.authenticated = false;
 	
 	this.__construct = function () {
-		this.socket = new SOCKET(this);
-		this.torrents = new TORRENTS(this);
-		this.ui = new UI(this);
-		this.console = new CONSOLE(this);
+		this.socket = new SOCKET();
+		this.torrents = new TORRENTS();
+		this.ui = new UI();
+		this.console = new CONSOLE();
+		this.session = new SESSION();
 	}
 
 	this.load = function () {
@@ -53,6 +55,7 @@ function DEOTORRENT() {
 			this.ui.hideLogin();
 			
 			this.ui.grid.init();
+			this.session.update();
 			this.ui.grid.update();
 			this.ui.grid.show(true);
 			
@@ -68,10 +71,6 @@ function DEOTORRENT() {
 	
 	this.__construct();
 }
-
-
-
-
 
 
 

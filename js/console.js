@@ -16,6 +16,7 @@ function CONSOLE() {
 	
 	this.scroll = false;
 	
+	this.autoIndex = 0;
 	this.autoMemory = [
 		"deotorrent",
 		"deotorrent.torrents",

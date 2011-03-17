@@ -55,6 +55,11 @@ body{
 	height: 16px;
 }
 
+.session {
+	background: url(icons/information.png) no-repeat center;
+	height: 16px;
+}
+
 .ftitle {
 	font-size: 1.5em;
 	color: #5a5a5a;
@@ -153,3 +158,16 @@ border: 1px solid red;
 	height: 130px; 
 	overflow-y: hidden;
 }
+
+#statusBar {
+	display: none;
+}
+
+#statusTable {
+	font-size: 0.9em;
+	padding: 0px;
+	margin: 0px;
+	}
+	#statusTable td {
+		padding: 1px;
+	}

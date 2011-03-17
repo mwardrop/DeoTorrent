@@ -51,6 +51,32 @@ function UI() {
 		}
 	}
 	
+	this.showSessionStatus = function () {
+		var details = "";
+		var data = deotorrent.session.data;
+		var cCount = 0;
+		for(var item in data) {
+			if(cCount == 0) { details += "<tr>"; }
+			
+			details += "<td class='detailsItem'>" + item + ":</td><td class='detailsValue' ><input type='text' value='" + data[item] + "'  style='width: 250px;' /><br /></td>";
+			
+			cCount ++;
+			if(cCount == 2) { details += "</tr>"; cCount = 0;}
+		}
+
+		$("#sessionStatus > table").html(details);
+		$( "#sessionStatus" ).dialog({
+			modal: true,
+			height:570,
+			width: 940,
+			buttons: {
+				Ok: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+	}
+	
 	this.showSettings = function () {
 					
 		$("#settings").find("input[name=server]").val(config['server']);			
@@ -136,7 +162,26 @@ function UI() {
 		});
 	}
 	
+	this.convertBytes = function (bytes) {
+		if (bytes < 1024) { return Array(bytes, 'B', 'B/s'); }
+		else if (bytes < 1048576) { return Array((bytes / 1024).toFixed(2), 'KB', 'Kb/s');}
+		else if (bytes < 1073741824) { return Array((bytes / 1048576).toFixed(2), 'MB' , 'Mb/s');}
+		else if (bytes < 1099511627776) { return Array((bytes / 1073741824).toFixed(2), 'GB', 'Gb/s');}
+		else { return Array((bytes / 1099511627776).toFixed(2), 'TB', 'Tb/s');}
+	}
 	
+	this.timeSpan = function(x) {
+		seconds = Math.floor( x % 60);
+		x /= 60;
+		minutes = Math.floor(x % 60);
+		x /= 60;
+		hours = Math.floor(x % 24);
+		x /= 24;
+		days = Math.floor(x);
+	
+		return days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+		return days + ":" + hours + ":" + minutes + ":" + seconds;
+	}
 	
 	this.__construct();
 }

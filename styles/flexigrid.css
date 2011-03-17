@@ -618,10 +618,7 @@ div.colCopy {
 
 .flexigrid div.pDiv div.pDiv2
 	{
-	margin: 3px;
-	margin-left: -2px;
-	float: left;
-	width: 1024px;
+	width: 100%;
 	}	
 	
 	div.pGroup

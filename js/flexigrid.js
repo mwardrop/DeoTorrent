@@ -1156,11 +1156,13 @@
 		if (p.usepager)
 		{
 		g.pDiv.className = 'pDiv';
-		g.pDiv.innerHTML = '<div class="pDiv2"></div>';
+		g.pDiv.innerHTML = '<div class="pDiv2" style="height: 23px;"></div>';
 		$(g.bDiv).after(g.pDiv);
-		var html = ' <div class="pGroup"> <div class="pFirst pButton"><span></span></div><div class="pPrev pButton"><span></span></div> </div> <div class="btnseparator"></div> <div class="pGroup"><span class="pcontrol">'+p.pagetext+' <input type="text" size="4" value="1" /> '+p.outof+' <span> 1 </span></span></div> <div class="btnseparator"></div> <div class="pGroup"> <div class="pNext pButton"><span></span></div><div class="pLast pButton"><span></span></div> </div> <div class="btnseparator"></div> <div class="pGroup"> <div class="pReload pButton"><span></span></div> </div> <div class="btnseparator"></div> <div class="pGroup"><span class="pPageStat"></span></div>';
-		$('div',g.pDiv).html(html);
 		
+		var html = ' <div class="pGroup"> <div class="pFirst pButton"><span></span></div><div class="pPrev pButton"><span></span></div> </div> <div class="btnseparator"></div> <div class="pGroup"><span class="pcontrol">'+p.pagetext+' <input type="text" size="4" value="1" /> '+p.outof+' <span> 1 </span></span></div> <div class="btnseparator"></div> <div class="pGroup"> <div class="pNext pButton"><span></span></div><div class="pLast pButton"><span></span></div> </div> <div class="btnseparator"></div> <div class="pGroup"> <div class="pReload pButton"><span></span></div> </div> <div class="btnseparator"></div> <div class="pGroup"><span class="pPageStat"></span></div>';
+		var html = $("#statusBar").html();
+		$('div',g.pDiv).html(html);
+		/*
 		$('.pReload',g.pDiv).click(function(){g.populate()});
 		$('.pFirst',g.pDiv).click(function(){g.changePage('first')});
 		$('.pPrev',g.pDiv).click(function(){g.changePage('prev')});
@@ -1192,8 +1194,9 @@
 					}
 				);
 			}
-		
+		*/
 		//add search button
+		/*
 		if (p.searchitems)
 			{
 				$('.pDiv2',g.pDiv).prepend("<div class='pGroup'> <div class='pSearch pButton'><span></span></div> </div>  <div class='btnseparator'></div>");
@@ -1223,7 +1226,7 @@
 				$(g.bDiv).after(g.sDiv);				
 				
 			}
-		
+		*/
 		}
 		$(g.pDiv,g.sDiv).append("<div style='clear:both'></div>");
 	

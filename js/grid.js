@@ -15,6 +15,8 @@ function GRID() {
 	this.selectedRow = null;
 	this.click = true;
 	
+	this.addrows = false;
+	
 	this.__construct = function () {
 		this.buttons = new BUTTONS();
 	}
@@ -32,42 +34,88 @@ function GRID() {
 		for(var key in data) {
 			var ETA = "Complete";
 			if(data[key].progress != 1) {
-				ETA = (((data[key].total_wanted - data[key].total_wanted_done) / data[key].download_rate) * 60).toFixed(1);
-				ETA += " Mins.";
+				seconds = ((data[key].total_wanted - data[key].total_wanted_done) / data[key].download_rate);
+				ETA = deotorrent.ui.timeSpan(seconds);
 			}
+			var size = deotorrent.ui.convertBytes(data[key].total_size);
+			var downSpeed = deotorrent.ui.convertBytes(data[key].download_rate);
+			var upSpeed = deotorrent.ui.convertBytes(data[key].upload_rate);
+			var uploaded = deotorrent.ui.convertBytes(data[key].all_time_upload);
+			var downloaded = deotorrent.ui.convertBytes(data[key].total_payload_download)
+			
 			if(filter == "all" || data[key].state == filter) {
 				rows.push({id: key,
 							cell: [ data[key].priority, 
 									data[key].name, 
-									(data[key].total_size / 1000 / 1000).toFixed(2) + " Mb", 
+									size[0] + " " + size[1], 
 									(data[key].progress * 100).toFixed(0) + " %", 
 									deotorrent.torrents.stateTypes[data[key].state], 
 									data[key].num_seeds, 
 									data[key].num_peers, 
-									(data[key].download_rate / 1000).toFixed(2) + " Kb/s", 
-									(data[key].upload_rate / 1000).toFixed(2) + " Kb/s",
+									downSpeed[0] + " " + downSpeed[2], 
+									upSpeed[0] + " " + upSpeed[2] ,
 									ETA,
-									(data[key].all_time_upload / 1000 / 1000).toFixed(2) + " Mb", 
+									uploaded[0] + " " + uploaded[2], 
+									downloaded[0] + " " + downloaded[2], 
 									data[key].distributed_copies]});
 			}
-			var stop = 'stop';
+			
+			size = null;
+			downSpeed = null;
+			upSpeed = null;
+			uploaded = null;
+			
 		}
 		var updateObj = {
-			total: 3,
+			total: rows.length,
 			page: 1,
 			rows: rows
 		};
 		
 
-		this.grid.flexAddData(updateObj);
-		this.sort("#gridView");
-	
+		if(this.addrows) {
+			this.grid.flexAddData(updateObj);
+			this.sort("#gridView");
+			this.addrows = false;
+		} else {
+			this.updateRows(updateObj);
+		}
+		
+		updateObj = null;
+		data = null;
+		rows = null;
+
+			
+		// TODO: Move this somewhere else, it really should be independant
+		// TODO: Add total up / total down status bar updates.
+		var downSpeed = deotorrent.ui.convertBytes(deotorrent.session.data['payload_download_rate']);
+		var downTotal = deotorrent.ui.convertBytes(deotorrent.session.data['total_payload_download']);
+		var upSpeed = deotorrent.ui.convertBytes(deotorrent.session.data['payload_upload_rate']);
+		var upTotal = deotorrent.ui.convertBytes(deotorrent.session.data['total_payload_upload']);
+		
+		$("#downSpeed").html(downSpeed[0] + " " + downSpeed[2]);
+		$("#downTotal").html(downTotal[0] + " " + downTotal[2]);
+		$("#upSpeed").html(upSpeed[0] + " " + upSpeed[2]);
+		$("#upTotal").html(upTotal[0] + " " + upTotal[2]);
+		
 		if(this.selectedRow) {
 			$("#row" + this.selectedRow).addClass("trSelected");
 		}
 		
 	}
 
+	this.updateRows = function (update) {
+		for (r = 0;r < update.rows.length; r++) {
+			var row = update.rows[r];
+			for(c = 0; c < row.cell.length; c++) {
+				var cell = $("#row" + row.id).find("td")[c];
+				$(cell).find("div").text(row.cell[c]);
+				cell = null;
+			}
+			row = null;
+		}
+	}
+	
 	this.addClickEvent = function (celDiv,id) {
 		$(celDiv).click(function (evt) {
 			deotorrent.ui.grid.selectedRow = id;
@@ -96,8 +144,9 @@ function GRID() {
 				{display: 'Peers', name : 'peers', width : 40, sortable : true, align: 'left', process: deotorrent.ui.grid.addClickEvent},
 				{display: 'Down Speed', name : 'downspeed', width : 75, sortable : true, align: 'left', process: deotorrent.ui.grid.addClickEvent},
 				{display: 'Up Speed', name : 'upspeed', width : 75, sortable : true, align: 'left', process: deotorrent.ui.grid.addClickEvent},
-				{display: 'ETA', name : 'eta', width : 80, sortable : true, align: 'left', process: deotorrent.ui.grid.addClickEvent},
+				{display: 'ETA', name : 'eta', width : 90, sortable : true, align: 'left', process: deotorrent.ui.grid.addClickEvent},
 				{display: 'Uploaded', name : 'uploaded', width : 75, sortable : true, align: 'left', process: deotorrent.ui.grid.addClickEvent},
+				{display: 'Downloaded', name : 'downloaded', width : 75, sortable : true, align: 'left', process: deotorrent.ui.grid.addClickEvent},
 				{display: 'Available', name : 'available', width : 75, sortable : true, align: 'left', process: deotorrent.ui.grid.addClickEvent}
 			],
 			searchitems : [
@@ -115,9 +164,10 @@ function GRID() {
 				{name: '', bclass: 'pause', onpress : deotorrent.ui.grid.buttons.pause},
 				{name: '', bclass: 'stop', onpress : deotorrent.ui.grid.buttons.stop},
 				{separator: true},
-				{name: '', bclass: 'rss', onpress : deotorrent.ui.grid.buttons.rss},
-				{separator: true},
+				//{name: '', bclass: 'rss', onpress : deotorrent.ui.grid.buttons.rss},
+				//{separator: true},
 				{name: '', bclass: 'console', onpress : deotorrent.ui.grid.buttons.console},
+				{name: '', bclass: 'session', onpress : deotorrent.ui.grid.buttons.session}
 			],
 			onChangeSort: function(name, order) { 
 				deotorrent.ui.grid.sort("#gridView", order); 
@@ -126,16 +176,16 @@ function GRID() {
 			sortname: "name",
 			sortorder: "asc",
 			title: '<img src="styles/server.png" /> DeoTorrent ' + filterHTML,
-			useRp: true,
-			rp: 15,
+			useRp: false,
 			showTableToggleBtn: false,
 			width: 'auto',
 			height: 700,
+			usepager: true,
 			novstripe: true,
 			singleSelect: true
 		});
 		$(window).resize(function() {
-			$(".bDiv").height($(window).height() - 103);
+			$(".bDiv").height($(window).height() - 120);
 		});
 		$(window).resize();
 		this.grid.contextMenu({
@@ -151,6 +201,7 @@ function GRID() {
 		
 		
 		$("input[name=filter]").change(function(){
+			deotorrent.ui.grid.addrows = true;
 			deotorrent.ui.grid.refresh();
 		});
  
@@ -266,5 +317,9 @@ function BUTTONS() {
 	
 	this.console = function () {
 		deotorrent.ui.showConsole();
+	}
+	
+	this.session = function () {
+		deotorrent.ui.showSessionStatus();
 	}
 }

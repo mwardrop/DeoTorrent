@@ -17,7 +17,7 @@ function CONFIG() {
 	this.autoLogin = true; 					// True: Login automatically for single user enviroment
 											// False: Provide login box for multiuser enviroment
  	
-	this.updateInterval = 2000; 			// How often torrent status is updated ( Milliseconds )
+	this.updateInterval = 3000; 			// How often torrent status is updated ( Milliseconds )
 	
 	this.__construct = function() {
 		if(localStorage.getItem('username')) {

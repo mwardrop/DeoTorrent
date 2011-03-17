@@ -2,8 +2,7 @@
 				|  _ \  ___  __|_   _|__  _ __ _ __ ___ _ __ | |_ 
 				| | | |/ _ \/ _ \| |/ _ \| '__| '__/ _ \ '_ \| __|
 				| |_| |  __/ (_) | | (_) | |  | | |  __/ | | | |_
-				|____/ \___|\___/|_|\___/|_|  |_|  \___|_| |_|\__|
-													Alpha RC 1.3
+				|____/ \___|\___/|_|\___/|_|  |_|  \___|_| |_|\__|+
  
 Contents
 --------
@@ -11,8 +10,6 @@ Contents
 	1. What is DeoTorrent
 	2. How to install
 	3. Usage
-	4. Known issues
-	5. Changelog
 	
 What is DeoTorret
 -----------------
@@ -146,35 +143,3 @@ Usage
 		Scrolling of the console output can be enabled and disabled using the
 		"Scroll Output" button.
 		
-
-Known issues
-------------
-
-	- There is a massive memory leak in the FlexiGrid component used for 
-		displaying the torrent list. Setting your config.updateInterval setting 
-		to a high value should help slow the memory leak until a better solution
-		can be found
-
-Changelog
----------
-
-	Alpha RC 1.0
-		- Basic connect and list support
-		- Initial draft of the console
-		
-	Alpha RC 1.1
-		- Added torrent status parsing and filtering
-		- Added new menu strip and context menu items ( methods not implemented )
-		- Refactored console to be more user friendly
-		- Added config file
-		
-	Alpha RC 1.2
-		- Added details window
-		- Added updateInterval to the config
-		- Added readme.txt
-	
-	Alpha RC 1.3
-		- Fixed big: initial grid load delay
-		- Improved status filter responsiveness
-		- Added settings dialog ( Allows per client settings )
-		- Updated details dialog UI
